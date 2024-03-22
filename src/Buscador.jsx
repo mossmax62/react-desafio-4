@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
-
-const Buscador = ({ data, setData }) => {
-    const [search, setSearch] = useState("");
-
-    const handleSearch = (e) => {
-        setSearch(e.target.value);
-        const result = e.target.value
-            ? data.filter((dato) =>
-            JSON.stringify(dato).toLowerCase().includes(e.target.value.toLowerCase())
-              )
-            : data;
-        setData(result);
-    };
+const Buscador = ({ busqueda, setBusqueda }) => {
     return (
-        <div>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <input
-                    type="text"
-                    placeholder='Buscar'
-                    value={search}
-                    onChange={handleSearch}
-                />
-            </form>
-        </div>
+      <div>
+        <input
+        className="form-control"
+          type="text"
+          placeholder="Buscar..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+      </div>
     );
-};
-
-export default Buscador;
+  };
+  
+  export default Buscador;

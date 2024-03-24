@@ -1,4 +1,19 @@
 *{
-box-sizing: border-box;
-margin: 0px;
-}
+    box-sizing: border-box;
+    margin: 0px;
+    }
+    
+    body {
+        text-align: center;
+        background-color: #800080; /* Dark purple */
+        color: #FFFFFF; /* White text for contrast */
+    }
+    
+    .lila_border {
+        padding: 10px;
+        border: 5px solid #FF00FF; /* Thick neon purple border */
+    }
+    
+    h1, h2, h3{
+        color: #4bed6c; /* Neon purple */
+    }

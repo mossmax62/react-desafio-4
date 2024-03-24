@@ -1,47 +1,44 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+
 import MiApi from './MiApi'
 import Buscador from './Buscador'
+import Ordenador from './Ordenador'
 
 function App() {
   const [resultados, setResultados] = useState([]);
-  const [busqueda, setBusqueda] = useState("");
+  const [originalData, setOriginalData] = useState([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await MiApi.consultarApi();
       setResultados(data);
+      setOriginalData(data); // Guarda los datos originales
     };
     fetchData();
   }, []);
   
-  const resultadosFiltrados = resultados.filter((resultado) =>
-    resultado.name.toLowerCase().includes(busqueda.toLowerCase())
-  );
+  
 
-  const ordenarResultados = () => {
-    // Puedes ordenar por nombre, precio o cualquier otro criterio
-    console.log('Ordenar por nombre');
-    setResultados(resultadosFiltrados.sort((a, b) => a.name.localeCompare(b.name)));
-  };
-
-  const ordenOriginal = () => {
-    setResultados(resultadosFiltrados.sort((a, b) => a.id - b.id));
-  }
+  
 
   return (
     <div className='container'>
       
       <div >
       <h1>Consumo de API con React</h1>
-      <Buscador busqueda={busqueda} setBusqueda={setBusqueda} />
-      <button className='btn btn-primary' onClick={ordenarResultados}>Ordenar por nombre</button>
-      <button className='btn btn-primary' onClick={ordenOriginal}>Orden original</button>
+      <h2>Personajes de Rick and Morty</h2>
+      <Buscador setResultados={setResultados} originalData={originalData}/>
+      <Ordenador resultados={resultados} setResultados={setResultados} originalData={originalData}/> {/* Pasa resultados, setResultados y originalData a Ordenador */}
+
         <div className='row'>
-        {resultadosFiltrados.map((resultado) => (
-          <div key={resultado.id} className='col col-sm'>
-             <img src={resultado.image} className='img-thumbnail' ></img> 
+        {resultados.map((resultado) => (
+          <div key={resultado.id} className='col col-sm lila_border'>
+             <img src={resultado.image} className='img-thumbnail img-fluid' ></img> 
              <h2>{resultado.name} </h2>
+             <h3>{resultado.species} </h3>
+             <h3>{resultado.status} </h3>
+             <h3>{resultado.origin.name} </h3>
           </div>
         ))}
         </div>
